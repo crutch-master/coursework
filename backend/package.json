@@ -1,0 +1,12 @@
+{
+	"name": "backend",
+	"type": "module",
+	"scripts": {
+		"dev": "bun --watch run index.ts",
+		"check": "tsc"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"typescript": "^5.8.3"
+	}
+}

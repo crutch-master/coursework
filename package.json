@@ -1,7 +1,7 @@
 {
 	"name": "coursework",
 	"license": "MIT",
-	"workspaces": ["frontend"],
+	"workspaces": ["frontend", "backend"],
 	"scripts": {
 		"lint": "biome lint .",
 		"fmt": "biome format --write .",
