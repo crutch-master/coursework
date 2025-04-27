@@ -1,0 +1,14 @@
+{
+	"name": "coursework",
+	"license": "MIT",
+	"workspaces": ["frontend"],
+	"scripts": {
+		"lint": "biome lint .",
+		"fmt": "biome format --write .",
+		"dev": "bun --filter '*' dev",
+		"check": "bun --filter '*' check"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4"
+	}
+}
