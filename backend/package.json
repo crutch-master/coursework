@@ -3,10 +3,13 @@
 	"type": "module",
 	"scripts": {
 		"dev": "bun --watch run index.ts",
-		"check": "tsc"
+		"check": "tsc",
+		"migrate:new": "dbmate new",
+		"migrate": "dbmate up"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
+		"dbmate": "^2.26.0",
 		"typescript": "^5.8.3"
 	},
 	"dependencies": {

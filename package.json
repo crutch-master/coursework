@@ -6,7 +6,9 @@
 		"lint": "biome lint .",
 		"fmt": "biome format --write .",
 		"dev": "bun --filter '*' dev",
-		"check": "bun --filter '*' check"
+		"check": "bun --filter '*' check",
+		"migrate:new": "bun --filter 'backend' migrate:new",
+		"migrate": "bun --filter 'backend' migrate"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4"

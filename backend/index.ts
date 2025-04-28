@@ -1,7 +1,8 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { initTRPC } from "@trpc/server";
 import makeLogger from "pino";
-import { appRouter, type Context } from "./trpc";
+import { appRouter, type Context } from "./trpc/";
+import { Database } from "bun:sqlite";
 
 // hate this thing
 const cors = {
@@ -13,6 +14,8 @@ function main() {
 	const t = initTRPC.context<Context>().create();
 	const router = appRouter(t);
 	const logger = makeLogger();
+
+	const db = new Database(Bun.env.SQLITE);
 
 	const server = Bun.serve({
 		port: 3000,
@@ -28,6 +31,7 @@ function main() {
 				req,
 				router,
 				createContext: () => ({
+					db,
 					logger,
 				}),
 			});
