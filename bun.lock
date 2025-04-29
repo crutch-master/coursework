@@ -26,6 +26,7 @@
       "dependencies": {
         "@solidjs/router": "^0.15.3",
         "@tailwindcss/vite": "^4.1.4",
+        "@tanstack/solid-form": "^1.9.0",
         "@trpc/client": "^11.1.1",
         "solid-js": "^1.9.5",
         "tailwindcss": "^4.1.4",
@@ -238,6 +239,14 @@
     "@tailwindcss/oxide-win32-x64-msvc": ["@tailwindcss/oxide-win32-x64-msvc@4.1.4", "", { "os": "win32", "cpu": "x64" }, "sha512-+7S63t5zhYjslUGb8NcgLpFXD+Kq1F/zt5Xv5qTv7HaFTG/DHyHD9GA6ieNAxhgyA4IcKa/zy7Xx4Oad2/wuhw=="],
 
     "@tailwindcss/vite": ["@tailwindcss/vite@4.1.4", "", { "dependencies": { "@tailwindcss/node": "4.1.4", "@tailwindcss/oxide": "4.1.4", "tailwindcss": "4.1.4" }, "peerDependencies": { "vite": "^5.2.0 || ^6" } }, "sha512-4UQeMrONbvrsXKXXp/uxmdEN5JIJ9RkH7YVzs6AMxC/KC1+Np7WZBaNIco7TEjlkthqxZbt8pU/ipD+hKjm80A=="],
+
+    "@tanstack/form-core": ["@tanstack/form-core@1.9.0", "", { "dependencies": { "@tanstack/store": "^0.7.0" } }, "sha512-lEXXQdIMW7PcybwnzJ+6VaEC65tWV/ZCgYfR5nC+lApXSlLPN+bp1fJanIclsw5U4dnx3DOxeOy/uzXwJ02wDQ=="],
+
+    "@tanstack/solid-form": ["@tanstack/solid-form@1.9.0", "", { "dependencies": { "@tanstack/form-core": "1.9.0", "@tanstack/solid-store": "^0.7.0" }, "peerDependencies": { "solid-js": "^1.6.0" } }, "sha512-q4/zcMd7jo3dGmMN1fg20+LPyv9h6T6bjB6BICqS4WwHFWIpKvPrqGIRn/5D2kGZYe1binOW1keyf7Xgc7ENjA=="],
+
+    "@tanstack/solid-store": ["@tanstack/solid-store@0.7.0", "", { "dependencies": { "@tanstack/store": "0.7.0" }, "peerDependencies": { "solid-js": "^1.6.0" } }, "sha512-uDQYkUuH3MppitiduZLTEcItkTr8vEJ33jzp2rH2VvlNRMGbuU54GQcqf3dLIlTbZ1/Z2TtIBtBjjl+N/OhwRg=="],
+
+    "@tanstack/store": ["@tanstack/store@0.7.0", "", {}, "sha512-CNIhdoUsmD2NolYuaIs8VfWM467RK6oIBAW4nPEKZhg1smZ+/CwtCdpURgp7nxSqOaV9oKkzdWD80+bC66F/Jg=="],
 
     "@trpc/client": ["@trpc/client@11.1.1", "", { "peerDependencies": { "@trpc/server": "11.1.1", "typescript": ">=5.7.2" } }, "sha512-Beiv56hlt+ARbijtUsCQOvKJw/FkfuVk4W9TzJl285iIJw8iCA3ZTwTG9GjIeSgeR7d2MyOeUbI26LV255n33A=="],
 
