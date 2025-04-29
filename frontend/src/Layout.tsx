@@ -11,16 +11,14 @@ import Button from "./components/Button";
 const Link: Component<{
 	href: string;
 	children: JSXElement;
-}> = ({ href, children }) => {
-	const location = useLocation();
-	const pathname = createMemo(() => location.pathname);
-
+	pathname: string;
+}> = (props) => {
 	return (
 		<A
-			class={`transition text-md p-2 rounded-md ${href === pathname() ? "bg-zinc-800 text-white" : "hover:bg-zinc-100"}`}
-			href={href}
+			class={`transition text-md p-2 rounded-md ${props.href === props.pathname ? "bg-zinc-800 text-white" : "hover:bg-zinc-100"}`}
+			href={props.href}
 		>
-			{children}
+			{props.children}
 		</A>
 	);
 };
@@ -28,6 +26,9 @@ const Link: Component<{
 const Layout: Component<RouteSectionProps<unknown>> = (props) => {
 	const client = new Client();
 	const navigate = useNavigate();
+
+	const location = useLocation();
+	const pathname = createMemo(() => location.pathname);
 
 	return (
 		<ClientContext.Provider value={client}>
@@ -38,7 +39,9 @@ const Layout: Component<RouteSectionProps<unknown>> = (props) => {
 					</div>
 
 					<nav class="flex flex-col p-2 gap-2">
-						<Link href="/">Home</Link>
+						<Link href="/" pathname={pathname()}>
+							Home
+						</Link>
 					</nav>
 
 					<div class="flex flex-col p-2 gap-2 border-t-1 border-gray-200 mt-auto">

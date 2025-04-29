@@ -98,7 +98,7 @@ const SignIn: Component = () => {
 					<Button
 						class="mb-4 w-full"
 						type="submit"
-						disabled={() => !state().canSubmit}
+						disabled={!state().canSubmit}
 					>
 						Sign In
 					</Button>
