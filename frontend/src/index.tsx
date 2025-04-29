@@ -1,6 +1,8 @@
 /* @refresh reload */
 import { render } from "solid-js/web";
-import App from "./App";
+import { Route, Router } from "@solidjs/router";
+import Layout from "./Layout";
+import Login from "./Login";
 import "./index.css";
 
 const root = document.getElementById("root");
@@ -11,4 +13,12 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 	);
 }
 
-render(() => <App />, root as HTMLElement);
+render(
+	() => (
+		<Router root={Layout}>
+			<Route path="/" component={() => <h1 class="text-3xl">root</h1>} />
+			<Route path="/sign-in" component={Login} />
+		</Router>
+	),
+	root as HTMLElement,
+);

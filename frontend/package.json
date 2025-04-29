@@ -9,11 +9,13 @@
 		"check": "tsc"
 	},
 	"devDependencies": {
+		"@types/bun": "^1.2.11",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.0",
 		"vite-plugin-solid": "^2.11.6"
 	},
 	"dependencies": {
+		"@solidjs/router": "^0.15.3",
 		"@tailwindcss/vite": "^4.1.4",
 		"@trpc/client": "^11.1.1",
 		"solid-js": "^1.9.5",

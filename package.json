@@ -1,7 +1,9 @@
 {
 	"name": "coursework",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4"
+	},
 	"license": "MIT",
-	"workspaces": ["frontend", "backend"],
 	"scripts": {
 		"lint": "biome lint .",
 		"fmt": "biome format --write .",
@@ -10,7 +12,5 @@
 		"migrate:new": "bun --filter 'backend' migrate:new",
 		"migrate": "bun --filter 'backend' migrate"
 	},
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4"
-	}
+	"workspaces": ["frontend", "backend"]
 }

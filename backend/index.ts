@@ -13,9 +13,10 @@ const cors = {
 function main() {
 	const t = initTRPC.context<Context>().create();
 	const router = appRouter(t);
-	const logger = makeLogger();
 
 	const db = new Database(Bun.env.SQLITE);
+	const logger = makeLogger();
+	const secret = new TextEncoder().encode(Bun.env.SECRET);
 
 	const server = Bun.serve({
 		port: 3000,
@@ -26,13 +27,17 @@ function main() {
 				});
 			}
 
+			const authorization = req.headers.get("authorization");
+
 			const response = await fetchRequestHandler({
 				endpoint: "/trpc",
 				req,
 				router,
 				createContext: () => ({
-					db,
 					logger,
+					db,
+					secret,
+					authorization,
 				}),
 			});
 
