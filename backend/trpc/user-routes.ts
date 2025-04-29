@@ -90,9 +90,9 @@ export function userRouter({ procedure, router }: RouterBuildArg<Context>) {
 
 				const row = ctx.db
 					.query(`
-						 select name
-						 from users
-						 where id = $id
+						select name
+						from users
+						where id = $id
 					`)
 					.get({ $id: ctx.user.id }) as Row | null;
 
