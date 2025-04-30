@@ -42,15 +42,31 @@ const Layout: Component<RouteSectionProps<unknown>> = (props) => {
 						<Link href="/" pathname={pathname()}>
 							Home
 						</Link>
+
+						<Show when={client.authorized}>
+							<Link href="/profile" pathname={pathname()}>
+								Profile
+							</Link>
+						</Show>
 					</nav>
 
 					<div class="flex flex-col p-2 gap-2 border-t-1 border-gray-200 mt-auto">
 						<Show
-							when={!client.authorized}
-							fallback={<Button class="text-md">Sign Out</Button>}
+							when={client.authorized}
+							fallback={
+								<Button class="text-md" onclick={() => navigate("/sign-in")}>
+									Sign In
+								</Button>
+							}
 						>
-							<Button class="text-md" onclick={() => navigate("/sign-in")}>
-								Sign In
+							<Button
+								class="text-md"
+								onclick={() => {
+									client.token = null;
+									navigate("/");
+								}}
+							>
+								Sign Out
 							</Button>
 						</Show>
 					</div>

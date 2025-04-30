@@ -33,7 +33,7 @@ export class Client {
 	}
 
 	set token(token: string | null) {
-		this.tokenSignal[1](token);
+		this.tokenSignal[1](token === null ? null : `Bearer ${token}`);
 	}
 
 	get authorized() {
