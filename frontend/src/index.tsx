@@ -2,7 +2,7 @@
 import { render } from "solid-js/web";
 import { Route, Router } from "@solidjs/router";
 import Layout from "./Layout";
-import Login from "./Login";
+import SignIn from "./SignIn";
 import "./index.css";
 
 const root = document.getElementById("root");
@@ -17,7 +17,7 @@ render(
 	() => (
 		<Router root={Layout}>
 			<Route path="/" component={() => <h1 class="text-3xl">root</h1>} />
-			<Route path="/sign-in" component={Login} />
+			<Route path="/sign-in" component={SignIn} />
 		</Router>
 	),
 	root as HTMLElement,

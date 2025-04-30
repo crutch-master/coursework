@@ -45,4 +45,6 @@ export class Client {
 	}
 }
 
-export const ClientContext = createContext<Client>();
+export type ClientContextValue = Client;
+
+export const ClientContext = createContext<ClientContextValue>();
