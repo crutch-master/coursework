@@ -4,6 +4,13 @@ import { z } from "zod";
 import { authorized } from "./middleware";
 import { SignJWT } from "jose";
 
+export type User = {
+	id: number;
+	name: string;
+	login: string;
+	password: string;
+};
+
 export function userRouter({ procedure, router }: RouterBuildArg<Context>) {
 	const authorizedProcedure = authorized(procedure);
 
@@ -17,6 +24,8 @@ export function userRouter({ procedure, router }: RouterBuildArg<Context>) {
 				}),
 			)
 			.mutation(async ({ ctx, input }) => {
+				type Row = Pick<User, "id">;
+
 				const password = await Bun.password.hash(input.password);
 
 				try {
@@ -30,7 +39,7 @@ export function userRouter({ procedure, router }: RouterBuildArg<Context>) {
 							$name: input.name,
 							$login: input.login,
 							$password: password,
-						}) as { id: number };
+						}) as Row;
 
 					return { ok: true, data: { id } } as const;
 				} catch (err) {
@@ -50,10 +59,7 @@ export function userRouter({ procedure, router }: RouterBuildArg<Context>) {
 		login: procedure
 			.input(z.object({ login: z.string(), password: z.string() }))
 			.mutation(async ({ ctx, input }) => {
-				type Row = {
-					id: number;
-					password: string;
-				};
+				type Row = Pick<User, "id" | "password">;
 
 				const row = ctx.db
 					.query(`
@@ -85,9 +91,7 @@ export function userRouter({ procedure, router }: RouterBuildArg<Context>) {
 		getUserInfo: authorizedProcedure
 			.input(z.undefined())
 			.query(async ({ ctx }) => {
-				type Row = {
-					name: string;
-				};
+				type Row = Pick<User, "name">;
 
 				const row = ctx.db
 					.query(`

@@ -33,17 +33,21 @@ const Layout: Component<RouteSectionProps<unknown>> = (props) => {
 	return (
 		<ClientContext.Provider value={client}>
 			<div class="flex flex-row h-screen">
-				<nav class="flex flex-col w-80 border-r-1 border-gray-200">
+				<nav class="flex flex-col w-60 border-r-1 border-gray-200 shadow-xl">
 					<div class="p-2 border-b-1 border-gray-200">
-						<h1 class="text-2xl text-zinc-950 p-2 font-semibold">MegaYayca</h1>
+						<h1 class="text-2xl text-zinc-950 p-2 font-semibold">Evently</h1>
 					</div>
 
 					<nav class="flex flex-col p-2 gap-2">
 						<Link href="/" pathname={pathname()}>
-							Home
+							All Events
 						</Link>
 
 						<Show when={client.authorized}>
+							<Link href="/new" pathname={pathname()}>
+								New Event
+							</Link>
+
 							<Link href="/profile" pathname={pathname()}>
 								Profile
 							</Link>
@@ -72,7 +76,7 @@ const Layout: Component<RouteSectionProps<unknown>> = (props) => {
 					</div>
 				</nav>
 
-				<div class="w-full flex flex-col items-center">{props.children}</div>
+				<div class="w-full h-full">{props.children}</div>
 			</div>
 		</ClientContext.Provider>
 	);

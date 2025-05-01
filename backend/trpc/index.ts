@@ -4,6 +4,7 @@ import type { Database } from "bun:sqlite";
 import { z } from "zod";
 import { userRouter } from "./user-routes";
 import { logged } from "./middleware";
+import { eventsRouter } from "./event-routes";
 
 export type Context = {
 	logger: Logger;
@@ -29,6 +30,7 @@ export function appRouter({ procedure: p, router }: RouterBuildArg<Context>) {
 				return `hello ${input.msg}`;
 			}),
 		user: userRouter({ procedure, router }),
+		event: eventsRouter({ procedure, router }),
 	});
 }
 
