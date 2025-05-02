@@ -9,6 +9,7 @@ import type { AppRouter } from "../../backend/trpc";
 import Button from "./components/Button";
 import { useNavigate } from "@solidjs/router";
 import { ClientContext, type ClientContextValue } from "./service/trpc";
+import { formatDate, formatDatetime, msInDay } from "./util/time";
 
 type Event = Awaited<ReturnType<AppRouter["event"]["getPublic"]>>[number];
 
@@ -27,7 +28,7 @@ const Day: Component<{ events: Event[]; date: string }> = (props) => {
 
 							<div class="w-full flex flex-row justify-between">
 								<p>Start at:</p>
-								<p>{event.start}</p>
+								<p>{formatDatetime(event.start)}</p>
 							</div>
 
 							<div class="w-full flex flex-row justify-between">
@@ -47,13 +48,6 @@ const Day: Component<{ events: Event[]; date: string }> = (props) => {
 			</div>
 		</div>
 	);
-};
-
-const msInDay = 24 * 60 * 60 * 1000;
-
-const formatTime = (time: number) => {
-	const date = new Date(time);
-	return `${date.getDay().toString().padStart(2, "0")}.${date.getMonth().toString().padStart(2, "0")}.${date.getFullYear()}`;
 };
 
 const Events: Component = () => {
@@ -79,9 +73,9 @@ const Events: Component = () => {
 
 	return (
 		<div class="w-full h-full p-16 flex flex-row gap-16">
-			<Day date={formatTime(prevDay())} events={prevDayEvents() ?? []} />
-			<Day date={formatTime(currDay())} events={currDayEvents() ?? []} />
-			<Day date={formatTime(nextDay())} events={nextDayEvents() ?? []} />
+			<Day date={formatDate(prevDay())} events={prevDayEvents() ?? []} />
+			<Day date={formatDate(currDay())} events={currDayEvents() ?? []} />
+			<Day date={formatDate(nextDay())} events={nextDayEvents() ?? []} />
 		</div>
 	);
 };

@@ -2,7 +2,7 @@
 create table events (
     id       varchar primary key not null,
     name     text    not null,
-    start    integer not null    default(unixepoch()),
+    start    integer not null,
     duration integer not null, -- in minutes
     public   boolean not null,
     host_id  integer not null

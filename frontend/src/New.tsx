@@ -19,19 +19,15 @@ const New: Component = () => {
 		defaultValues: {
 			name: "",
 			start: "",
-			public: "false",
+			public: false,
 			duration: 90,
 		},
 
-		async onSubmit({
-			value: { start: startDatetime, public: publicStr, ...event },
-		}) {
+		async onSubmit({ value: { start: startDatetime, ...event } }) {
 			const start = datetimeToDate(startDatetime).getTime();
-			const isPublic = publicStr === "true";
 
 			const { id } = await client.trpc.event.create.mutate({
 				start,
-				public: isPublic,
 				...event,
 			});
 
@@ -96,6 +92,7 @@ const New: Component = () => {
 								label="Public"
 								placeholder=""
 								type="checkbox"
+								onInput={(e) => field().handleChange(e.target.checked)}
 							/>
 						)}
 					/>

@@ -1,5 +1,5 @@
 import type { AnyFieldApi } from "@tanstack/solid-form";
-import type { Component } from "solid-js";
+import type { Component, JSX } from "solid-js";
 
 const FieldInfo: Component<{ field: AnyFieldApi }> = (props) => (
 	<>
@@ -17,6 +17,7 @@ export const Input: Component<{
 	label: string;
 	placeholder: string;
 	type?: string;
+	onInput?: JSX.InputEventHandlerUnion<HTMLInputElement, InputEvent>;
 }> = (props) => (
 	<div class="mb-4">
 		<label class="block mb-2 text-gray-500" for={props.field.name}>
@@ -31,7 +32,9 @@ export const Input: Component<{
 			name={props.field.name}
 			value={props.field.state.value}
 			onBlur={props.field.handleBlur}
-			onInput={(e) => props.field.handleChange(e.target.value)}
+			onInput={
+				props.onInput ?? ((e) => props.field.handleChange(e.target.value))
+			}
 		/>
 
 		<FieldInfo field={props.field} />

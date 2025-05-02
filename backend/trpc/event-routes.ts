@@ -57,7 +57,7 @@ export function eventsRouter({ procedure, router }: RouterBuildArg<Context>) {
 					.run({
 						$id: id,
 						$name: input.name,
-						$start: input.name,
+						$start: input.start,
 						$duration: input.duration,
 						$public: input.public,
 						$host_id: ctx.user.id,
@@ -85,16 +85,16 @@ export function eventsRouter({ procedure, router }: RouterBuildArg<Context>) {
 							events.start,
 							events.duration,
 							events.public,
-							host.name as host_name
-							users.name as user_name,
+							host.name as host_name,
+							users.name as user_name
 						from events
-						inner join users as host
+						inner join users host
 						on events.host_id = host.id
-						left join event_visitors
-						on event_visitors.event_id = events.id
+						left join event_visitor
+						on event_visitor.event_id = events.id
 						left join users
-						on users.id = event_visitors.user_id
-						where id = $id
+						on users.id = event_visitor.user_id
+						where events.id = $id
 					`)
 					.all({ $id: input.id }) as Row[];
 
