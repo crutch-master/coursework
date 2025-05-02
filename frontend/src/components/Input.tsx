@@ -25,7 +25,7 @@ export const Input: Component<{
 
 		<input
 			class="border-1 border-gray-200 rounded-md block w-full p-3 mb-2"
-			placeholder="login"
+			placeholder={props.placeholder}
 			type={props.type}
 			id={props.field.name}
 			name={props.field.name}
