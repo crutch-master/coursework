@@ -3,6 +3,7 @@ import { SQLiteError } from "bun:sqlite";
 import { z } from "zod";
 import { authorized } from "./middleware";
 import { SignJWT } from "jose";
+import type { Event } from "./event-routes";
 
 export type User = {
 	id: number;
@@ -91,21 +92,39 @@ export function userRouter({ procedure, router }: RouterBuildArg<Context>) {
 		getUserInfo: authorizedProcedure
 			.input(z.undefined())
 			.query(async ({ ctx }) => {
-				type Row = Pick<User, "name">;
+				type UserRow = Pick<User, "name">;
+				type EventRow = Pick<Event, "id" | "name" | "start" | "duration">;
 
-				const row = ctx.db
-					.query(`
-						select name
-						from users
-						where id = $id
-					`)
-					.get({ $id: ctx.user.id }) as Row | null;
+				let userRow: UserRow | null = null as UserRow | null;
+				let eventRows: EventRow[] = [];
 
-				if (row === null) {
+				ctx.db.transaction(() => {
+					userRow = ctx.db
+						.query(`
+							select name
+							from users
+							where id = $id
+						`)
+						.get({ $id: ctx.user.id }) as UserRow | null;
+
+					eventRows = ctx.db
+						.query(`
+							select id, name, start, duration
+							from events
+							where host_id = $id
+							order by start asc
+						`)
+						.all({ $id: ctx.user.id }) as EventRow[];
+				})();
+
+				if (userRow === null) {
 					return { ok: false, error: "User not Found" } as const;
 				}
 
-				return { ok: true, data: { user: row } } as const;
+				return {
+					ok: true,
+					data: { user: userRow, events: eventRows },
+				} as const;
 			}),
 	});
 }
