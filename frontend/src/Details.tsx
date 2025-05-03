@@ -36,23 +36,23 @@ const Details: Component = () => {
 								</h1>
 
 								<div class="w-full flex flex-row justify-between">
-									<p class="font-semibold">Start at</p>
+									<p class="font-medium">Start at</p>
 									<p>{formatDatetime((event() as Event).data.event.start)}</p>
 								</div>
 
 								<div class="w-full flex flex-row justify-between">
-									<p class="font-semibold">Duration</p>
+									<p class="font-medium">Duration</p>
 									<p>{(event() as Event).data.event.duration} minutes</p>
 								</div>
 
 								<div class="w-full flex flex-row justify-between">
-									<p class="font-semibold">Public</p>
+									<p class="font-medium">Public</p>
 									<p>{(event() as Event).data.event.public ? "Yes" : "No"}</p>
 								</div>
 							</div>
 
 							<div class="w-30 flex flex-col items-center gap-2">
-								<p class="font-semibold">Host</p>
+								<p class="font-medium">Host</p>
 								<Avatar name={(event() as Event).data.event.host_name} />
 								<p class="text-xl">{(event() as Event).data.event.host_name}</p>
 							</div>

@@ -35,7 +35,7 @@ const Layout: Component<RouteSectionProps<unknown>> = (props) => {
 			<div class="flex flex-row h-screen">
 				<nav class="flex flex-col w-60 border-r-1 border-gray-200 shadow-xl">
 					<div class="p-2 border-b-1 border-gray-200">
-						<h1 class="text-2xl text-zinc-950 p-2 font-semibold">Evently</h1>
+						<h1 class="text-2xl text-zinc-950 p-2 font-bold">Evently</h1>
 					</div>
 
 					<nav class="flex flex-col p-2 gap-2">

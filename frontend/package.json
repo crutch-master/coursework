@@ -12,7 +12,8 @@
 		"@types/bun": "^1.2.11",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.0",
-		"vite-plugin-solid": "^2.11.6"
+		"vite-plugin-solid": "^2.11.6",
+		"vite-plugin-webfont-dl": "^3.10.4"
 	},
 	"dependencies": {
 		"@solidjs/router": "^0.15.3",
