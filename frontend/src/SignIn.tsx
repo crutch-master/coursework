@@ -6,11 +6,11 @@ import {
 	useContext,
 	type Component,
 } from "solid-js";
-import Button from "./components/Button";
 import { createForm } from "@tanstack/solid-form";
 import { useNavigate } from "@solidjs/router";
 import { type ClientContextValue, ClientContext } from "./service/trpc";
-import { Input } from "./components/Input";
+import Input from "./components/Input";
+import Button from "./components/Button";
 
 const SignInForm: Component = () => {
 	const navigate = useNavigate();

@@ -1,9 +1,9 @@
 import { createForm } from "@tanstack/solid-form";
 import { createEffect, useContext, type Component } from "solid-js";
 import { ClientContext, type ClientContextValue } from "./service/trpc";
-import { Input } from "./components/Input";
 import { useNavigate } from "@solidjs/router";
 import Button from "./components/Button";
+import Input from "./components/Input";
 
 const datetimeToDate = (datetime: string) => {
 	const [date, time] = datetime.split("T");

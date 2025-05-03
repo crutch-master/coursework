@@ -12,7 +12,7 @@ const FieldInfo: Component<{ field: AnyFieldApi }> = (props) => (
 	</>
 );
 
-export const Input: Component<{
+const Input: Component<{
 	field: AnyFieldApi;
 	label: string;
 	placeholder: string;
@@ -40,3 +40,5 @@ export const Input: Component<{
 		<FieldInfo field={props.field} />
 	</div>
 );
+
+export default Input;

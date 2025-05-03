@@ -8,6 +8,7 @@ import {
 	useContext,
 } from "solid-js";
 import { ClientContext, type ClientContextValue } from "./service/trpc";
+import Avatar from "./components/Avatar";
 
 const Profile: Component = () => {
 	const navigate = useNavigate();
@@ -27,13 +28,13 @@ const Profile: Component = () => {
 
 	return (
 		<div class="w-full flex justify-center">
-			<div class="mt-8 w-100">
+			<div class="mt-8 w-80 gap-8 flex flex-col items-center">
 				<Suspense fallback={<p class="text-center text-xl">Loading...</p>}>
 					<Show when={user()?.ok}>
-						<p class="text-xl font-semibold mb-2">Your name:</p>
-						<p class="text-2xl border-1 border-gray-200 rounded-md w-full p-2">
-							{(user() as UserInfo).data.user.name}
-						</p>
+						<div class="w-full">
+							<Avatar name={(user() as UserInfo).data.user.name} />
+						</div>
+						<p class="text-2xl">{(user() as UserInfo).data.user.name}</p>
 					</Show>
 				</Suspense>
 			</div>
