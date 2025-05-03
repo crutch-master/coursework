@@ -8,6 +8,7 @@ import {
 import { ClientContext, type ClientContextValue } from "./service/trpc";
 import { formatDate, msInDay } from "./util/time";
 import EventCard from "./components/EventCard";
+import Button from "./components/Button";
 
 const Day: Component<{
 	events: Parameters<typeof EventCard>[number]["event"][];
@@ -25,7 +26,7 @@ const Day: Component<{
 };
 
 const Events: Component = () => {
-	const [currDay, _] = createSignal(new Date().setHours(0, 0, 0, 0));
+	const [currDay, setCurrDay] = createSignal(new Date().setHours(0, 0, 0, 0));
 	const nextDay = () => currDay() + msInDay;
 	const prevDay = () => currDay() - msInDay;
 
@@ -46,10 +47,16 @@ const Events: Component = () => {
 		events()?.filter(({ start }) => start >= nextDay());
 
 	return (
-		<div class="w-full h-full p-16 flex flex-row gap-16">
+		<div class="w-full h-full p-8 flex flex-row gap-8 items-center">
+			<Button class="h-20" onclick={() => setCurrDay(prevDay())}>
+				👈
+			</Button>
 			<Day date={formatDate(prevDay())} events={prevDayEvents() ?? []} />
 			<Day date={formatDate(currDay())} events={currDayEvents() ?? []} />
 			<Day date={formatDate(nextDay())} events={nextDayEvents() ?? []} />
+			<Button class="h-20" onclick={() => setCurrDay(nextDay())}>
+				👉
+			</Button>
 		</div>
 	);
 };
