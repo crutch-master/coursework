@@ -15,11 +15,17 @@ import Avatar from "./components/Avatar";
 const Details: Component = () => {
 	const params = useParams();
 	const client = useContext(ClientContext) as ClientContextValue;
-	const [event] = createResource({ id: params.id }, ({ id }) =>
+	const [event, { refetch }] = createResource({ id: params.id }, ({ id }) =>
 		client.trpc.event.getDetails.query({ id }),
 	);
 
 	type Event = Extract<ReturnType<typeof event>, { ok: true }>;
+
+	const join = async () => {
+		const result = await client.trpc.event.signup.mutate({ id: params.id });
+
+		if (result.updated) refetch();
+	};
 
 	return (
 		<div class="w-full h-full flex justify-center">
@@ -72,7 +78,9 @@ const Details: Component = () => {
 							</div>
 						</div>
 
-						<Button class="w-full mt-auto mb-2">Join</Button>
+						<Button class="w-full mt-auto mb-2" onclick={join}>
+							Join
+						</Button>
 					</Show>
 				</Suspense>
 			</div>

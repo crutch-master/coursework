@@ -119,5 +119,38 @@ export function eventsRouter({ procedure, router }: RouterBuildArg<Context>) {
 
 				return { ok: true, data: { event } } as const;
 			}),
+
+		signup: authorizedProcedure
+			.input(z.object({ id: z.string() }))
+			.mutation(async ({ ctx, input }) => {
+				let updated = false;
+
+				ctx.db.transaction(() => {
+					const { count } = ctx.db
+						.query(`
+							select count(event_id) as count
+							from event_visitor
+							where user_id = $user_id and event_id = $event_id
+						`)
+						.get({ $user_id: ctx.user.id, $event_id: input.id }) as {
+						count: number;
+					};
+
+					if (count > 0) {
+						return;
+					}
+
+					ctx.db
+						.query(`
+							insert into event_visitor (event_id, user_id)
+							values ($event_id, $user_id)
+						`)
+						.run({ $user_id: ctx.user.id, $event_id: input.id });
+
+					updated = true;
+				})();
+
+				return { updated };
+			}),
 	});
 }
