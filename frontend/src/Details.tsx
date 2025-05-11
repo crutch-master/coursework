@@ -11,8 +11,11 @@ import { ClientContext, type ClientContextValue } from "./service/trpc";
 import Button from "./components/Button";
 import { formatDatetime } from "./util/time";
 import Avatar from "./components/Avatar";
+import useProtected from "./util/protected";
 
 const Details: Component = () => {
+	useProtected();
+
 	const params = useParams();
 	const client = useContext(ClientContext) as ClientContextValue;
 	const [event, { refetch }] = createResource({ id: params.id }, ({ id }) =>

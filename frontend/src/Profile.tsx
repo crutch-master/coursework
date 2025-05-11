@@ -1,7 +1,5 @@
-import { useNavigate } from "@solidjs/router";
 import {
 	type Component,
-	createEffect,
 	createResource,
 	For,
 	Show,
@@ -11,16 +9,12 @@ import {
 import { ClientContext, type ClientContextValue } from "./service/trpc";
 import Avatar from "./components/Avatar";
 import EventCard from "./components/EventCard";
+import useProtected from "./util/protected";
 
 const Profile: Component = () => {
-	const navigate = useNavigate();
-	const client = useContext(ClientContext) as ClientContextValue;
+	useProtected();
 
-	createEffect(() => {
-		if (!client.authorized) {
-			navigate("/sign-in");
-		}
-	});
+	const client = useContext(ClientContext) as ClientContextValue;
 
 	const [user] = createResource(async () =>
 		client.trpc.user.getUserInfo.query(),
