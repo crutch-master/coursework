@@ -4,9 +4,7 @@ import { formatDatetime } from "../util/time";
 import type { AppRouter } from "../../../backend/trpc";
 import Button from "./Button";
 
-export type Event = Awaited<
-	ReturnType<AppRouter["event"]["getPublic"]>
->[number];
+type Event = Awaited<ReturnType<AppRouter["event"]["getPublic"]>>[number];
 
 const EventCard: Component<{ event: Event }> = (props) => {
 	const navigate = useNavigate();
