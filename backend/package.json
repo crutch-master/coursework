@@ -5,7 +5,8 @@
 		"dev": "bun --watch run index.ts",
 		"check": "tsc",
 		"migrate:new": "dbmate new",
-		"migrate": "dbmate up"
+		"migrate": "dbmate up",
+		"build:docker": "bun build --production --minify --target=bun --outdir=dist index.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",

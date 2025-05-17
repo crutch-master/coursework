@@ -3,12 +3,15 @@ import { initTRPC } from "@trpc/server";
 import makeLogger from "pino";
 import { appRouter, type Context } from "./trpc/";
 import { Database } from "bun:sqlite";
+import path from "node:path";
 
 // hate this thing
 const cors = {
 	"Access-Control-Allow-Origin": "*",
 	"Access-Control-Allow-Headers": "authorization,  content-type",
 } as const;
+
+const directory = "dist/";
 
 function main() {
 	const t = initTRPC.context<Context>().create();
@@ -21,33 +24,56 @@ function main() {
 	const server = Bun.serve({
 		port: 3000,
 		async fetch(req) {
-			if (req.method === "OPTIONS") {
-				return new Response(undefined, {
-					headers: cors,
+			const pathname = new URL(req.url).pathname;
+
+			// we do a little dirty routing
+			if (pathname.startsWith("/trpc")) {
+				if (Bun.env.NODE_ENV !== "production" && req.method === "OPTIONS") {
+					return new Response(undefined, {
+						headers: cors,
+					});
+				}
+
+				const authorization = req.headers.get("authorization");
+
+				const response = await fetchRequestHandler({
+					endpoint: "/trpc",
+					req,
+					router,
+					createContext: () => ({
+						logger,
+						db,
+						secret,
+						authorization,
+					}),
 				});
+
+				// TRPC doesn't have a proper way of specifying headers
+				if (Bun.env.NODE_ENV !== "production") {
+					for (const k in cors) {
+						const key = k as keyof typeof cors; // TS is too stupid to deduce it on it's own
+						response.headers.append(key, cors[key]);
+					}
+				}
+
+				return response;
 			}
 
-			const authorization = req.headers.get("authorization");
+			if (Bun.env.NODE_ENV === "production") {
+				const fullPath = path.normalize(path.join(directory, pathname));
 
-			const response = await fetchRequestHandler({
-				endpoint: "/trpc",
-				req,
-				router,
-				createContext: () => ({
-					logger,
-					db,
-					secret,
-					authorization,
-				}),
-			});
+				if (fullPath.startsWith(directory)) {
+					const file = Bun.file(fullPath);
 
-			// TRPC doesn't have a proper way of specifying headers
-			for (const k in cors) {
-				const key = k as keyof typeof cors; // TS is too stupid to deduce it on it's own
-				response.headers.append(key, cors[key]);
+					if (await file.exists()) {
+						return new Response(file);
+					}
+
+					return new Response(Bun.file(path.join(directory, "/index.html")));
+				}
 			}
 
-			return response;
+			return new Response(undefined, { status: 404 });
 		},
 	});
 
