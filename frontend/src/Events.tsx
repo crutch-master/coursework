@@ -18,7 +18,7 @@ const Day: Component<{
 		<div class="w-full h-full p-4 rounded-md shadow-xl border-1 border-gray-200 flex flex-col items-center gap-4">
 			<h1 class="text-2xl">{props.date}</h1>
 
-			<div class="w-full h-full overflow-auto flex flex-col gap-4">
+			<div class="w-full h-full overflow-auto flex flex-col gap-4" title="day">
 				<For each={props.events}>{(event) => <EventCard event={event} />}</For>
 			</div>
 		</div>
